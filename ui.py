@@ -1,463 +1,374 @@
 import tkinter as tk
 from tkinter import messagebox
 
-# Main Window
-root = tk.Tk()
-root.title("Smart Student Performance Prediction System")
-root.geometry("700x700")
-root.configure(bg="#EAF4F4")
+win = tk.Tk()
+win.title("Smart Student Performance Prediction System")
+win.state("zoomed")
+win.configure(bg="#F4F7FB")
 
 
-def predict():
+BG = "#F4F7FB"
+CARD = "#FFFFFF"
+PRIMARY = "#2563EB"
+PRIMARY_DARK = "#1D4ED8"
+ORANGE = "#F59E0B"
+RED = "#EF4444"
+GREEN = "#16A34A"
+TEXT = "#1E293B"
+SUBTEXT = "#64748B"
+BORDER = "#E2E8F0"
+LIGHT_BLUE = "#EFF6FF"
+LIGHT_GREEN = "#F0FDF4"
 
-    student_id = id_entry.get()
-    name = name_entry.get()
-    email = email_entry.get()
+def number(value):
+    if value == "":
+        return True
+    if value.isdigit():
+        return True
+    messagebox.showerror("Invalid Input", "Numbers only!")
+    return False
 
+
+def text(value):
+    if value == "":
+        return True
+    if all(x.isalpha() or x.isspace() for x in value):
+        return True
+    messagebox.showerror("Invalid Input", "Letters only!")
+    return False
+
+
+def decimal(value):
+    if value == "":
+        return True
     try:
-        attendance = float(attendance_entry.get())
-        study = float(study_entry.get())
-        internal = float(internal_entry.get())
-        assignment = float(assignment_entry.get())
-        previous = float(previous_entry.get())
+        float(value)
+        return True
+    except:
+        messagebox.showerror("Invalid Input", "Numbers only!")
+        return False
 
-    except ValueError:
-        messagebox.showerror(
-            "Error",
-            "Please enter valid numbers!"
-        )
-        return
-
-
-    if student_id == "" or name == "" or email == "":
-        messagebox.showwarning(
-            "Warning",
-            "Please enter Student ID and Name."
-        )
-        return
-
-    if attendance < 0 or attendance > 100:
-        messagebox.showwarning(
-            "Warning",
-            "Attendance must be between 0 and 100."
-        )
-        return
-
-    if study < 0:
-        messagebox.showwarning(
-            "Warning",
-            "Study hours cannot be negative."
-        )
-        return
-
-    if internal < 0 or internal > 100:
-        messagebox.showwarning(
-            "Warning",
-            "Internal marks must be between 0 and 100."
-        )
-        return
-
-    if assignment < 0 or assignment > 100:
-        messagebox.showwarning(
-            "Warning",
-            "Assignment must be between 0 and 100."
-        )
-        return
-
-    if previous < 0 or previous > 100:
-        messagebox.showwarning(
-            "Warning",
-            "Previous score must be between 0 and 100."
-        )
-        return
-
-    score = (
-        attendance * 0.20 +
-        study * 5 +
-        internal * 0.25 +
-        assignment * 0.15 +
-        previous * 0.20
-    )
-
-    if score > 100:
-        score = 100
-
-
-    if score >= 75:
-
-        prediction = "Excellent Performance"
-        risk = "Low Risk"
-
-    elif score >= 60:
-
-        prediction = "Good Performance"
-        risk = "Medium Risk"
-
-    else:
-
-        prediction = "Needs Improvement"
-        risk = "High Risk"
-
-
-
-    result_label.config(
-        text=f"Student: {name}\n"
-             f"Performance Score: {score:.2f}/100\n\n"
-             f"Prediction: {prediction}\n"
-             f"Risk Level: {risk}"
-    )
 
 def clear():
+    student_id.delete(0, tk.END)
+    student_name.delete(0, tk.END)
 
-    id_entry.delete(0, tk.END)
-    name_entry.delete(0, tk.END)
-    email_entry.delete(0, tk.END)
-    attendance_entry.delete(0, tk.END)
-    study_entry.delete(0, tk.END)
-    internal_entry.delete(0, tk.END)
-    assignment_entry.delete(0, tk.END)
-    previous_entry.delete(0, tk.END)
+    for entry in a.winfo_children():
+        if isinstance(entry, tk.Entry):
+            entry.delete(0, tk.END)
 
-    result_label.config(
-        text="Enter student details and click Predict"
+    prediction.config(state="normal")
+    prediction.delete(0, tk.END)
+    prediction.config(state="readonly")
+
+    risk.config(state="normal")
+    risk.delete(0, tk.END)
+    risk.config(state="readonly")
+
+    recommendation.config(state="normal")
+    recommendation.delete("1.0", tk.END)
+    recommendation.config(state="disabled")
+
+
+num = win.register(number)
+txt = win.register(text)
+dec = win.register(decimal)
+
+# ================= HEADER =================
+header = tk.Frame(win, bg=PRIMARY, height=95)
+header.pack(fill="x")
+header.pack_propagate(False)
+
+tk.Label(
+    header,
+    text="SMART STUDENT",
+    font=("Segoe UI", 26, "bold"),
+    bg=PRIMARY,
+    fg="white"
+).pack(pady=(15, 0))
+
+tk.Label(
+    header,
+    text="PERFORMANCE PREDICTION SYSTEM",
+    font=("Segoe UI", 13),
+    bg=PRIMARY,
+    fg="#DBEAFE"
+).pack()
+
+main = tk.Frame(win, bg=BG)
+main.pack(fill="both", expand=True, padx=35, pady=25)
+
+top = tk.Frame(main, bg=BG)
+top.pack(fill="x")
+
+s = tk.LabelFrame(
+    top,
+    text="  Student Information  ",
+    font=("Segoe UI", 15, "bold"),
+    bg=CARD,
+    fg=PRIMARY,
+    bd=1,
+    relief="solid",
+    padx=20,
+    pady=15
+)
+s.pack(side="left", fill="both", expand=True, padx=(0, 12))
+
+tk.Label(
+    s,
+    text="Student ID",
+    font=("Segoe UI", 12),
+    bg=CARD,
+    fg=TEXT
+).grid(row=0, column=0, padx=20, pady=20, sticky="w")
+
+student_id = tk.Entry(
+    s,
+    font=("Segoe UI", 12),
+    bg="#F8FAFC",
+    fg=TEXT,
+    relief="solid",
+    bd=1,
+    validate="key",
+    validatecommand=(num, "%P")
+)
+student_id.grid(row=0, column=1, padx=10, pady=20, sticky="ew", ipady=7)
+
+tk.Label(
+    s,
+    text="Student Name",
+    font=("Segoe UI", 12),
+    bg=CARD,
+    fg=TEXT
+).grid(row=1, column=0, padx=20, pady=20, sticky="w")
+
+student_name = tk.Entry(
+    s,
+    font=("Segoe UI", 12),
+    bg="#F8FAFC",
+    fg=TEXT,
+    relief="solid",
+    bd=1,
+    validate="key",
+    validatecommand=(txt, "%P")
+)
+student_name.grid(row=1, column=1, padx=10, pady=20, sticky="ew", ipady=7)
+
+s.columnconfigure(1, weight=1)
+
+a = tk.LabelFrame(
+    top,
+    text="  Academic Information  ",
+    font=("Segoe UI", 15, "bold"),
+    bg=CARD,
+    fg=PRIMARY,
+    bd=1,
+    relief="solid",
+    padx=20,
+    pady=15
+)
+a.pack(side="left", fill="both", expand=True, padx=(12, 0))
+
+fields = [
+    "Attendance (%)",
+    "Study Hours (per day)",
+    "Internal Marks (%)",
+    "Assignment (%)",
+    "Previous Score (%)"
+]
+
+for i, field in enumerate(fields):
+
+    tk.Label(
+        a,
+        text=field,
+        font=("Segoe UI", 12),
+        bg=CARD,
+        fg=TEXT
+    ).grid(
+        row=i,
+        column=0,
+        padx=15,
+        pady=10,
+        sticky="w"
     )
 
+    tk.Entry(
+        a,
+        font=("Segoe UI", 12),
+        bg="#F8FAFC",
+        fg=TEXT,
+        relief="solid",
+        bd=1,
+        validate="key",
+        validatecommand=(dec, "%P")
+    ).grid(
+        row=i,
+        column=1,
+        padx=10,
+        pady=10,
+        sticky="ew",
+        ipady=5
+    )
 
-tk.Label(
-    root,
-    text="SMART STUDENT PERFORMANCE PREDICTION SYSTEM",
-    font=("Arial", 24, "bold"),
-    bg="#EAF4F4",
-    fg="#155E75"
-).pack(pady=(20, 0))
+a.columnconfigure(1, weight=1)
 
+buttons = tk.Frame(main, bg=BG)
+buttons.pack(pady=25)
 
-
-student_frame = tk.LabelFrame(
-    root,
-    text="  Student Details  ",
-    font=("Arial", 12, "bold"),
-    bg="white",
-    fg="#155E75",
-    padx=20,
+predict_btn = tk.Button(
+    buttons,
+    text="  Predict Performance  ",
+    width=22,
+    font=("Segoe UI", 12, "bold"),
+    bg=PRIMARY,
+    fg="white",
+    activebackground=PRIMARY_DARK,
+    activeforeground="white",
+    relief="flat",
+    cursor="hand2",
+    padx=10,
     pady=10
 )
+predict_btn.pack(side="left", padx=12)
 
-student_frame.pack(
-    padx=40,
-    pady=8,
-    fill="x"
-)
-
-
-
-
-tk.Label(
-    student_frame,
-    text="Register No",
-    bg="white"
-).grid(
-    row=0,
-    column=0,
-    padx=10,
-    pady=8,
-    sticky="w"
-)
-
-
-id_entry = tk.Entry(
-    student_frame,
-    width=35,
-    relief="solid"
-)
-
-id_entry.grid(
-    row=0,
-    column=1,
-    padx=10,
-    pady=8
-)
-
-tk.Label(
-    student_frame,
-    text="Student Name",
-    bg="white"
-).grid(
-    row=1,
-    column=0,
-    padx=10,
-    pady=8,
-    sticky="w"
-)
-
-
-name_entry = tk.Entry(
-    student_frame,
-    width=35,
-    relief="solid"
-)
-
-name_entry.grid(
-    row=1,
-    column=1,
-    padx=10,
-    pady=8
-)
-tk.Label(
-    student_frame,
-    text="Email id",
-    bg="white"
-).grid(
-    row=2,
-    column=0,
-    padx=10,
-    pady=8,
-    sticky="w"
-)
-
-
-email_entry = tk.Entry(
-    student_frame,
-    width=35,
-    relief="solid"
-)
-
-email_entry.grid(
-    row=2,
-    column=1,
-    padx=10,
-    pady=8
-)
-
-
-
-marks_frame = tk.LabelFrame(
-    root,
-    text="  Academic Details  ",
-    font=("Arial", 12, "bold"),
-    bg="white",
-    fg="#155E75",
-    padx=20,
-    pady=10
-)
-
-marks_frame.pack(
-    padx=40,
-    pady=8,
-    fill="x"
-)
-
-
-
-tk.Label(
-    marks_frame,
-    text="Attendance (%)",
-    bg="white"
-).grid(
-    row=0,
-    column=0,
-    padx=10,
-    pady=5,
-    sticky="w"
-)
-
-
-attendance_entry = tk.Entry(
-    marks_frame,
-    width=35,
-    relief="solid"
-)
-
-attendance_entry.grid(
-    row=0,
-    column=1,
-    padx=10,
-    pady=5
-)
-
-
-tk.Label(
-    marks_frame,
-    text="Study Hours per Day",
-    bg="white"
-).grid(
-    row=1,
-    column=0,
-    padx=10,
-    pady=5,
-    sticky="w"
-)
-
-
-study_entry = tk.Entry(
-    marks_frame,
-    width=35,
-    relief="solid"
-)
-
-study_entry.grid(
-    row=1,
-    column=1,
-    padx=10,
-    pady=5
-)
-
-
-tk.Label(
-    marks_frame,
-    text="Internal Marks (%)",
-    bg="white"
-).grid(
-    row=2,
-    column=0,
-    padx=10,
-    pady=5,
-    sticky="w"
-)
-
-
-internal_entry = tk.Entry(
-    marks_frame,
-    width=35,
-    relief="solid"
-)
-
-internal_entry.grid(
-    row=2,
-    column=1,
-    padx=10,
-    pady=5
-)
-
-tk.Label(
-    marks_frame,
-    text="Assignment (%)",
-    bg="white"
-).grid(
-    row=3,
-    column=0,
-    padx=10,
-    pady=5,
-    sticky="w"
-)
-
-
-assignment_entry = tk.Entry(
-    marks_frame,
-    width=35,
-    relief="solid"
-)
-
-assignment_entry.grid(
-    row=3,
-    column=1,
-    padx=10,
-    pady=5
-)
-
-
-tk.Label(
-    marks_frame,
-    text="Previous Score (%)",
-    bg="white"
-).grid(
-    row=4,
-    column=0,
-    padx=10,
-    pady=5,
-    sticky="w"
-)
-
-
-previous_entry = tk.Entry(
-    marks_frame,
-    width=35,
-    relief="solid"
-)
-
-previous_entry.grid(
-    row=4,
-    column=1,
-    padx=10,
-    pady=5
-)
-
-button_frame = tk.Frame(
-    root,
-    bg="#EAF4F4"
-)
-
-button_frame.pack(pady=15)
-
-tk.Button(
-    button_frame,
-    text="PREDICT",
-    width=12,
-    font=("Arial", 10, "bold"),
-    bg="#2E8B57",
+clear_btn = tk.Button(
+    buttons,
+    text="  Clear  ",
+    width=15,
+    font=("Segoe UI", 12, "bold"),
+    bg=ORANGE,
     fg="white",
-    command=predict
-).grid(
-    row=0,
-    column=0,
-    padx=8
-)
-
-tk.Button(
-    button_frame,
-    text="CLEAR",
-    width=12,
-    font=("Arial", 10, "bold"),
-    bg="#D9534F",
-    fg="white",
+    activebackground="#D97706",
+    activeforeground="white",
+    relief="flat",
+    cursor="hand2",
+    padx=10,
+    pady=10,
     command=clear
-).grid(
+)
+clear_btn.pack(side="left", padx=12)
+
+exit_btn = tk.Button(
+    buttons,
+    text="  Exit  ",
+    width=15,
+    font=("Segoe UI", 12, "bold"),
+    bg=RED,
+    fg="white",
+    activebackground="#DC2626",
+    activeforeground="white",
+    relief="flat",
+    cursor="hand2",
+    padx=10,
+    pady=10,
+    command=win.destroy
+)
+exit_btn.pack(side="left", padx=12)
+
+r = tk.LabelFrame(
+    main,
+    text="  Prediction Results  ",
+    font=("Segoe UI", 15, "bold"),
+    bg=LIGHT_GREEN,
+    fg=GREEN,
+    bd=1,
+    relief="solid",
+    padx=25,
+    pady=15
+)
+r.pack(fill="x", pady=(0, 10))
+
+tk.Label(
+    r,
+    text="Prediction",
+    font=("Segoe UI", 12, "bold"),
+    bg=LIGHT_GREEN,
+    fg=TEXT
+).grid(row=0, column=0, padx=20, pady=12, sticky="w")
+
+prediction = tk.Entry(
+    r,
+    font=("Segoe UI", 12),
+    bg="white",
+    fg=TEXT,
+    relief="solid",
+    bd=1,
+    state="readonly"
+)
+prediction.grid(
     row=0,
     column=1,
-    padx=8
-)
-
-tk.Button(
-    button_frame,
-    text="EXIT",
-    width=12,
-    font=("Arial", 10, "bold"),
-    bg="#555555",
-    fg="white",
-    command=root.destroy
-).grid(
-    row=0,
-    column=2,
-    padx=8
+    padx=10,
+    pady=12,
+    sticky="ew",
+    ipady=6
 )
 
 
-result_frame = tk.LabelFrame(
-    root,
-    text="  Prediction Result  ",
-    font=("Arial", 12, "bold"),
+tk.Label(
+    r,
+    text="Risk Level",
+    font=("Segoe UI", 12, "bold"),
+    bg=LIGHT_GREEN,
+    fg=TEXT
+).grid(row=1, column=0, padx=20, pady=12, sticky="w")
+
+risk = tk.Entry(
+    r,
+    font=("Segoe UI", 12),
     bg="white",
-    fg="#155E75",
-    padx=15,
-    pady=10
+    fg=TEXT,
+    relief="solid",
+    bd=1,
+    state="readonly"
+)
+risk.grid(
+    row=1,
+    column=1,
+    padx=10,
+    pady=12,
+    sticky="ew",
+    ipady=6
 )
 
-result_frame.pack(
-    padx=40,
-    pady=5,
-    fill="x"
-)
+tk.Label(
+    r,
+    text="Recommendation",
+    font=("Segoe UI", 12, "bold"),
+    bg=LIGHT_GREEN,
+    fg=TEXT
+).grid(row=2, column=0, padx=20, pady=12, sticky="nw")
 
-
-result_label = tk.Label(
-    result_frame,
-    text="Enter student details and click Predict",
-    font=("Arial", 11, "bold"),
+recommendation = tk.Text(
+    r,
+    font=("Segoe UI", 12),
     bg="white",
-    fg="#333333",
-    justify="center"
+    fg=TEXT,
+    relief="solid",
+    bd=1,
+    width=70,
+    height=4,
+    state="disabled",
+    wrap="word"
+)
+recommendation.grid(
+    row=2,
+    column=1,
+    padx=10,
+    pady=12,
+    sticky="ew"
 )
 
-result_label.pack(pady=10)
+r.columnconfigure(1, weight=1)
 
-root.mainloop()
+
+tk.Label(
+    win,
+    text="© Smart Student Performance Prediction System",
+    font=("Segoe UI", 9),
+    bg=BG,
+    fg=SUBTEXT
+).pack(pady=(0, 8))
+
+win.mainloop()
