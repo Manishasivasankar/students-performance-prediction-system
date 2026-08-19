@@ -1,0 +1,51 @@
+Attendance,Study_Hours,Internal_Marks,Assignment,Previous_Score,Performance
+95,5,90,95,88,Excellent
+90,4,85,90,82,Excellent
+88,4,82,85,80,Excellent
+92,5,88,92,85,Excellent
+85,4,80,85,78,Excellent
+80,3,75,80,72,Good
+78,3,72,75,70,Good
+75,3,70,72,68,Good
+82,3,78,80,75,Good
+70,2,65,68,60,Good
+68,2,62,65,58,Good
+72,3,68,70,65,Good
+65,2,60,62,55,Good
+60,2,55,58,52,Needs Improvement
+55,1,50,52,48,Needs Improvement
+50,1,45,48,42,Needs Improvement
+48,1,42,45,40,Needs Improvement
+45,1,40,42,38,Needs Improvement
+40,1,35,40,35,Needs Improvement
+35,0.5,30,35,30,Needs Improvement
+96,5,92,96,90,Excellent
+94,5,89,93,87,Excellent
+91,4,86,91,84,Excellent
+87,4,84,88,81,Excellent
+84,4,81,84,79,Excellent
+83,3,79,82,76,Good
+79,3,74,78,71,Good
+77,3,71,76,69,Good
+74,2,68,70,64,Good
+71,2,66,69,62,Good
+69,2,64,66,59,Good
+67,2,61,64,57,Good
+63,2,58,60,54,Needs Improvement
+61,1.5,55,58,50,Needs Improvement
+58,1.5,52,55,48,Needs Improvement
+56,1,49,52,45,Needs Improvement
+52,1,46,49,43,Needs Improvement
+49,1,43,46,41,Needs Improvement
+43,0.5,38,42,36,Needs Improvement
+38,0.5,32,38,32,Needs Improvement
+97,5,94,97,92,Excellent
+93,4,90,94,89,Excellent
+89,4,85,89,83,Excellent
+86,4,82,86,80,Excellent
+81,3,77,81,74,Good
+76,3,73,77,70,Good
+73,2,69,73,66,Good
+66,2,63,67,58,Good
+59,1,54,57,49,Needs Improvement
+47,1,41,44,39,Needs Improvement
