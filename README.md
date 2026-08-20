@@ -149,7 +149,7 @@ Recommendation: Maintain current study pattern and attendance
 - Risk level
 - Recommendation
 ## **8. SYSTEM ARCHITECTURE**
-<img width="1600" height="800" alt="WhatsApp Image 2026-08-18 at 11 30 39 AM" src="https://github.com/user-attachments/assets/e4f937d4-530e-4dea-b859-2758e9d2535d" />
+   <img width="1600" height="800" alt="WhatsApp Image 2026-08-19 at 8 59 08 PM" src="https://github.com/user-attachments/assets/bf61e6fd-1620-43bb-8201-1e922c8c50e8" />
 
 ## **9. UI DESIGN REQUIREMENTS**
 The application should contain:
