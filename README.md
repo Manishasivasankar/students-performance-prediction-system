@@ -180,5 +180,28 @@ The application should contain:
 - Evaluate model performance using basic metrics
 - Replace Day 2 rule-based logic with an ML-based prediction system
 - Prepare the ML model for integration with Tkinter Ul
+## **10.2 OUTCOMES**
+- Should complete:
+- Dataset (CSV file)
+- Data preprocessing code
+- Trained ML model
+- Accuracy report
+- Prediction function
+- Saved model file (.pkl)
+## **ML WORKFLOW**
+
+```text
+Data Collection
+↓
+Data Preprocessing
+↓
+Feature Selection
+↓
+Model Training
+↓
+Model Evaluation
+↓
+Prediction
+```
 
 
