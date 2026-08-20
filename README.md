@@ -170,5 +170,15 @@ The application should contain:
 - Predicted Performance
 - Risk Level
 - Recommendation
+## **10. IMPLEMENTATION(MACHINE LEARNING MODEL DEVELOPMENT)**
+### **10.1 OBJECTIVES**
+- Understand the fundamentals of Machine Learning (ML)
+- Differentiate between traditional programming and ML-based systems
+- Work with datasets using Pandas & NumPy
+- Perform data preprocessing and feature selection
+- Train a Machine Learning model for prediction
+- Evaluate model performance using basic metrics
+- Replace Day 2 rule-based logic with an ML-based prediction system
+- Prepare the ML model for integration with Tkinter Ul
 
 
