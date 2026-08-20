@@ -188,7 +188,7 @@ The application should contain:
 - Accuracy report
 - Prediction function
 - Saved model file (.pkl)
-## **ML WORKFLOW**
+## **10.3 ML WORKFLOW**
 
 ```text
 Data Collection
@@ -203,5 +203,29 @@ Model Evaluation
 ↓
 Prediction
 ```
+## **10.4 PROBLEM TYPE**
+### **For this Project:**
+- Classification Problem
+### **Output categories:**
+    - Excellent
+    - Good
+    - Average
+    - At Risk
+- Regression Problem
+
+Output = Performance Score (0-100)
+## **10.5 MODEL SELECTION**
+### **Algorithms Introduced**
+- Logistic Regression (Primary)
+- Decision Tree (optional)
+- Random Forest (advanced)
+## **10.6 MODEL EVALUATION**
+- Confusion Matrix
+## **10.7 IMPROVING THE MODEL**
+- Increase dataset size
+- Feature selection
+- Try different algorithms
+- Tune parameters
+
 
 
